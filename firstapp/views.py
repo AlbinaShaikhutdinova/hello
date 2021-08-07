@@ -1,8 +1,12 @@
 from django.http import HttpResponse
+from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
 from .models import Task
+from .forms import TaskForm
+
+
 
 # получение данных из бд
 def index(request):
@@ -22,14 +26,14 @@ def create(request):
 # удаление данных из бд
 def delete(request, id):
     try:
-        person = Person.objects.get(id=id)
-        person.delete()
+        t = Task.objects.get(id=id)
+        t.delete()
         return HttpResponseRedirect("/")
-    except Person.DoesNotExist:
-        return HttpResponseNotFound("<h2>Person not found</h2>")
+    except Task.DoesNotExist:
+        return HttpResponseNotFound("<h2>Task not found</h2>")
 
 
-"""from .forms import TaskForm"""
+"""from .forms import TaskForm
 
 def create1(request):
     # if this is a POST request we need to process the form data
@@ -44,11 +48,10 @@ def create1(request):
             p = TaskForm(content=content, status=status)
             p.save()
             # redirect to a new URL:
-            return HttpResponseRedirect('/')
-
+        return HttpResponseRedirect('/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = TaskForm()
 
-    return render(request, 'index.html', {'task': form})
+    return render(request, 'index.html', {'form': form})"""
