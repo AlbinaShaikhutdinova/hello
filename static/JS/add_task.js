@@ -20,7 +20,7 @@ function addTask() {
     addLabel(numElem,newTask,textTask);
     addButton(newTask);
     newTask.addEventListener('click', changeTaskStatus);
-    inputField.value = '';
+    //inputField.value = '';
     hideIfInCompleted(newTask);
 }
 function addCheckbox(numElem,newTask){
