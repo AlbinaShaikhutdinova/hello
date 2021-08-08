@@ -18,22 +18,28 @@
     <div class="todo-main-part__center-items">
       <div class="todo-input todo-main-part_style todo-input__item_center">
         <div class="input__icon"><img class="icon" src="{% static 'icons/select-all.png' %}"></div>
-        <form method="POST" action="create/">
+        <form class="input-field__form" method="POST" action="create/">
           {% csrf_token %}
-      <input name="content" class="todo-input__input-field input-field text" type="text" placeholder="What needs to be done?"/>
-      </form>
+          <input name="content" class="todo-input__input-field input-field text" type="text" placeholder="What needs to be done?"/>
+        </form>
       </div>
 
       <div class="todo-list">
         <ul class="todo-list-checkbox">
           {% for t in task %}
           <li class="todo-list__item todo-list__item_style {{t.status}}">
-            <input class="checkbox todo-list__checkbox" type="checkbox" id="{{t.id}}" value="no"/>
-            <label class="checkbox__label todo-list__checkbox-label" for="{{t.id}}"><input class="todo-list__text input-field text" type="text" value="{{t.content}}"/></label>
+            <a href="changeStatus/{{t.id}}">
+              <label class="checkbox__label todo-list__checkbox-label" for="{{t.id}}">
+                <input class="checkbox todo-list__checkbox" type="checkbox" id="{{t.id}}" value="no"/>
+                <!--<form method="post" action="changeTaskContent/<int:id>/">
+                  {% csrf_token %}-->
+                  <input name="text" class="todo-list__text input-field text" type="text" value="{{t.content}}"/>
+               <!-- </form>-->
+              </label>
+            </a>
             <button class="button todo-list__delete-button todo-list__delete-button_hover">
               <a href="delete/{{t.id}}"><img class="icon" src="{% static 'icons/close.png' %}"></a>
             </button>
-
           </li>
           {% endfor %}
           <li class="todo-list__item todo-list__item_style active">

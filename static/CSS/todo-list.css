@@ -14,7 +14,7 @@
 .checkbox__label{
     position: relative;
     padding-left: 30px;
-    padding-top: 20px;
+    /*padding-top: 20px;*/
 }
 
 .checkbox__label:hover{
@@ -28,16 +28,19 @@
     border-radius: 100%;
     border: 2px solid #efefef;
     left:0;
+    top: 18px;
 }
 
-.checkbox:checked + .checkbox__label::before {
+.completed .checkbox__label::before {
     background: url(../icons/completed.png);
     border: 2px solid #61c3b1;
 }
-
+.completed .todo-list__text{
+    text-decoration: line-through;
+    color: #dadada;
+}
 .todo-list__item:hover{
     background: #fafafa;
-
 }
 
 .todo-list__item:hover .todo-list__delete-button_hover{
@@ -72,4 +75,12 @@
 }
 .todo-list__text{
     width: 100%;
+}
+.todo-list__checkbox-label{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+a{
+    text-decoration: none;
 }

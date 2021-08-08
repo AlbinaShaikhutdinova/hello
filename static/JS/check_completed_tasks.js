@@ -11,7 +11,7 @@ function changeTaskStatus(event){
     const inputField = trgt.querySelector('.todo-list__text');
     changeInputFieldStatus(inputField);
     changeClassStatus(trgt);
-    changeFontStyle(inputField);
+    // changeFontStyle(inputField);
     hideIfTypeUnfit(trgt);
 }
 
@@ -37,7 +37,7 @@ function changeClassStatus(trgt){
 
 
 /* change decoration and color */
-function changeFontStyle(input){
+/*function changeFontStyle(input){
     if(input.disabled)
     {
         input.style.textDecoration='line-through';
@@ -47,7 +47,7 @@ function changeFontStyle(input){
         input.style.textDecoration='none';
         input.style.color= '#666666';
     }
-}
+}*/
 
 /* checks if chosen element fits the current type of shown tasks and hides it if not*/
 function hideIfTypeUnfit(trgt){

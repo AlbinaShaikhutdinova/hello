@@ -32,6 +32,27 @@ def delete(request, id):
     except Task.DoesNotExist:
         return HttpResponseNotFound("<h2>Task not found</h2>")
 
+# изменение статуса задачи
+def changeStatus(request, id):
+    try:
+        task = Task.objects.get(id=id)
+        if task.status == "active":
+            task.status = "completed"
+        else:
+            task.status = "active"
+        task.save()
+        return HttpResponseRedirect("/")
+    except Task.DoesNotExist:
+        return HttpResponseNotFound("<h2>Task not found</h2>")
+
+# изменение задачи
+def changeTaskContent(request, id):
+    try:
+        task = Task.objects.get(id=id)
+        ask.content = request.POST.get("content")
+        return HttpResponseRedirect("/")
+    except Task.DoesNotExist:
+        return HttpResponseNotFound("<h2>Task not found</h2>")
 
 """from .forms import TaskForm
 
