@@ -28,21 +28,19 @@
         <ul class="todo-list-checkbox">
           {% for t in task %}
           <li class="todo-list__item todo-list__item_style {{t.status}}">
-            <a href="changeStatus/{{t.id}}">
-              <label class="checkbox__label todo-list__checkbox-label" for="{{t.id}}">
-                <input class="checkbox todo-list__checkbox" type="checkbox" id="{{t.id}}" value="no"/>
-                <!--<form method="post" action="changeTaskContent/<int:id>/">
-                  {% csrf_token %}-->
-                  <input name="text" class="todo-list__text input-field text" type="text" value="{{t.content}}"/>
-               <!-- </form>-->
+              <label class="checkbox__label todo-list__checkbox-label" for="id{{t.id}}">
+                  <input class="checkbox todo-list__checkbox" type="checkbox" id="id{{t.id}}" value="no"/>
+                  <form class="input-field__form" method="post" action="changeTaskContent/{{t.id}}/">
+                    {% csrf_token %}
+                    <input name="text" class="todo-list__text input-field text" type="text" value="{{t.content}}"/>
+                  </form>
               </label>
-            </a>
-            <button class="button todo-list__delete-button todo-list__delete-button_hover">
+          <button class="button todo-list__delete-button todo-list__delete-button_hover">
               <a href="delete/{{t.id}}"><img class="icon" src="{% static 'icons/close.png' %}"></a>
-            </button>
+          </button>
           </li>
           {% endfor %}
-          <li class="todo-list__item todo-list__item_style active">
+         <!-- <li class="todo-list__item todo-list__item_style active">
             <input class="checkbox todo-list__checkbox" type="checkbox" id="id1" value="no"/>
             <label class="checkbox__label todo-list__checkbox-label" for="id1"><input class="todo-list__text input-field text" type="text" value="HTML"/></label>
             <button class="button todo-list__delete-button todo-list__delete-button_hover"><img class="icon" src="{% static 'icons/close.png' %}"></button>
@@ -61,7 +59,7 @@
             <input class="checkbox todo-list__checkbox" type="checkbox" id="id4" value="no"/>
             <label class="checkbox__label todo-list__checkbox-label" for="id4"><input class="todo-list__text input-field text" type="text" value="JS tools"/></label>
             <button class="button todo-list__delete-button todo-list__delete-button_hover" ><img class="icon" src="{% static 'icons/close.png' %}"></button>
-          </li>
+          </li>-->
         </ul>
 
       </div>

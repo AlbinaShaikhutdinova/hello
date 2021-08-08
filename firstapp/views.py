@@ -48,8 +48,10 @@ def changeStatus(request, id):
 # изменение задачи
 def changeTaskContent(request, id):
     try:
-        task = Task.objects.get(id=id)
-        ask.content = request.POST.get("content")
+        if request.method == "POST":
+            task = Task.objects.get(id=id)
+            task.content = request.POST.get("text")
+            task.save()
         return HttpResponseRedirect("/")
     except Task.DoesNotExist:
         return HttpResponseNotFound("<h2>Task not found</h2>")

@@ -11,16 +11,16 @@
     padding: 0;
 
 }
-.checkbox__label{
+.todo-list__checkbox-label{
     position: relative;
     padding-left: 30px;
     /*padding-top: 20px;*/
 }
 
-.checkbox__label:hover{
+.todo-list__checkbox-label:hover{
     cursor: pointer;
 }
-.checkbox__label::before {
+.todo-list__checkbox-label::before {
     content:"";
     position: absolute;
     width: 20px;
@@ -31,7 +31,7 @@
     top: 18px;
 }
 
-.completed .checkbox__label::before {
+.completed .todo-list__checkbox-label::before {
     background: url(../icons/completed.png);
     border: 2px solid #61c3b1;
 }
@@ -75,11 +75,15 @@
 }
 .todo-list__text{
     width: 100%;
+    /*display: flex;*/
+   /*align-items: center;*/
+    height: 100%;
 }
 .todo-list__checkbox-label{
     display: flex;
     justify-content: center;
     height: 100%;
+
 }
 a{
     text-decoration: none;
