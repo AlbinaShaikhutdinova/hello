@@ -1,6 +1,8 @@
-
 from django import forms
+from .models import Task
 
-class TaskForm(forms.Form):
-    content = forms.CharField(widget=forms.TextInput(attrs={"class":"todo-input__input-field"}))
-    status = forms.CharField(required=False)
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ('content', 'status')
+

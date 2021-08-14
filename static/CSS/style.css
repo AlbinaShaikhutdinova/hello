@@ -1,4 +1,4 @@
-
+{% block style%}
 @import "header.css";
 @import "todo-main-part.css";
 @import "todo-input.css";
@@ -29,3 +29,5 @@ body{
 .checkbox{
     display: none;
 }
+
+{% endblock style%}
