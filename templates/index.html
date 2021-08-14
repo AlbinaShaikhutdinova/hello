@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>TODO</title>
   <link rel="stylesheet" href="{% static 'CSS/style.css' %}" />
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 <div class="todos">
@@ -18,10 +18,11 @@
     <div class="todo-main-part__center-items">
       <div class="todo-input todo-main-part_style todo-input__item_center">
         <div class="input__icon"><img class="icon" src="{% static 'icons/select-all.png' %}"></div>
-        <form class="input-field__form" method="POST" action="create/">
+          <div id="submit_form">
+        <form  class="input-field__form" method="POST" action="create/">
           {% csrf_token %}
           <input name="content" class="todo-input__input-field input-field text" type="text" placeholder="What needs to be done?"/>
-        </form>
+        </form></div>
       </div>
 
       <div class="todo-list">
@@ -75,7 +76,7 @@
                     <button class="button task-button footer-button_focus-border footer-text_style" id="completed">Completed</button>
                 </span>
         <span class="footer__buttons button_right">
-                    <button class="button footer-button_active-border footer-text_style" id="button_clear">Clear completed</button>
+            <a href="clear/"><button class="button footer-button_active-border footer-text_style" id="button_clear">Clear completed</button></a>
                 </span>
       </div>
     </div>
@@ -85,7 +86,6 @@
 
 
 </div>
-
 <script src="{% static 'JS/task_types.js' %}"></script>
 <script src="{% static 'JS/check_completed_tasks.js' %}"></script>
 <script src="{% static 'JS/drop_down_list.js' %}"></script>
@@ -93,6 +93,12 @@
 <script src="{% static 'JS/add_task.js' %}"> </script>
 <script src="{% static 'JS/task_counter.js' %}"></script>
 <script src="{% static 'JS/delete_task.js' %}"> </script>
+<script src="../static/JS/jquery-3.6.0.js"></script>
+<script>window.onload = function() {
+
+    alert( "welcome" );
+
+};</script>
 </body>
 </html>
 

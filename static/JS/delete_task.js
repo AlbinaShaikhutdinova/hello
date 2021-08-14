@@ -15,7 +15,7 @@ function deleteTask(event){
 
 const clearCompletedTaskButton = document.getElementById('button_clear');
 
-clearCompletedTaskButton.addEventListener('click',clearCompletedTask);
+//clearCompletedTaskButton.addEventListener('click',clearCompletedTask);
 
 function clearCompletedTask(){
     const elemOfList = document.getElementsByClassName('todo-list__item')
@@ -24,7 +24,7 @@ function clearCompletedTask(){
     for(let i = length-1; i >= 0; i--){
         if(elemOfList[i].classList.contains('completed'))
         {
-            changeId(i+1);
+            //changeId(i+1);
             elemOfList[i].remove();
         }
     }

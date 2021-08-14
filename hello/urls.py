@@ -18,9 +18,16 @@ from django.urls import path
 from firstapp import views
  
 urlpatterns = [
+    path('delete', views.delete_post, name='delete'),
+    path('create', views.create_post, name="create"),
+
     path('', views.index),
-    path('create/', views.create),
-    path('delete/<int:id>/', views.delete),
+    #path('create/', views.create),
+
+    path('clear', views.clear_post, name='clear'),
+    #path('', views.delete_post, name="delete"),
     path('changeStatus/<int:id>/', views.changeStatus),
     path('changeTaskContent/<int:id>/', views.changeTaskContent),
+    path('post/ajax/friend', views.postFriend, name = "post_friend"),
+
 ]
