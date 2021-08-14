@@ -1,19 +1,19 @@
-const deleteButton = document.getElementsByClassName('todo-list__delete-button');
+//const deleteButton = document.getElementsByClassName('todo-list__delete-button');
 
-for(const elem of deleteButton) {
+/*for(const elem of deleteButton) {
     elem.addEventListener('click', deleteTask);
-}
+}*/
 
-function deleteTask(event){
+/*function deleteTask(event){
     const button = event.currentTarget;
     const task = button.parentElement;
     const numId = button.previousElementSibling.previousElementSibling.id.split('d');
     changeId(numId[1]);
     task.remove();
-}
+}*/
 
 
-const clearCompletedTaskButton = document.getElementById('button_clear');
+//const clearCompletedTaskButton = document.getElementById('button_clear');
 
 //clearCompletedTaskButton.addEventListener('click',clearCompletedTask);
 
@@ -30,6 +30,7 @@ function clearCompletedTask(){
     }
 }
 
+/*
 function changeId(idNum){
     const task = document.getElementsByClassName('todo-list__checkbox');
     const label = document.getElementsByClassName('todo-list__checkbox-label');
@@ -41,4 +42,4 @@ function changeId(idNum){
         label[i].htmlFor = label[i-1].htmlFor;
     }
 
-}
+}*/

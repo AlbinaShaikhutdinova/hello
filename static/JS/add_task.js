@@ -4,30 +4,6 @@ const inputField = document.querySelector('.todo-input__input-field');
 
 //inputField.addEventListener('keydown',handleEvent);
 
-/*$(document).ready(function () {
-        $("#friend-form").submit(function (e) {
-            // preventing from page reload and default actions
-            e.preventDefault();
-            // serialize the data for sending the form data.
-            var serializedData = $(this).serialize();
-            // make POST ajax call
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'post_friend' %}",
-                data: serializedData,
-                success: function (response) {
-                    // on successfull creating object
-                    // 1. clear the form.
-                    //$("#friend-form").trigger('reset');
-                    addTask()
-                },
-                error: function (response) {
-                    // alert the error if any error occured
-                    alert(response["responseJSON"]["error"]);
-                }
-            })
-        })
-})*/
 
 
 
@@ -38,46 +14,63 @@ function addTask(cur_id) {
     const textTask = inputField.value;
     newTask.className = 'todo-list__item todo-list__item_style active';
     list.append(newTask);
-    const numElem = list.children.length.toString();
-    addCheckbox(numElem,newTask,cur_id);
-    addLabel(numElem,newTask,textTask,cur_id);
-    addButton(newTask);
-    //newTask.addEventListener('click', changeTaskStatus);
+    const label = addLabel(newTask,cur_id);
+    addButton(newTask,cur_id);
+    addCheckbox(label,cur_id);
+    const form = addForm(label,cur_id);
+    addInput(form,textTask,cur_id);
+
+    //label.addEventListener('click', changeTaskStatus);
     inputField.value = '';
     hideIfInCompleted(newTask);
 
 }
-function addCheckbox(numElem,newTask,cur_id){
+function addCheckbox(label,cur_id){
     const checkbox = document.createElement('input');
     checkbox.className = 'checkbox todo-list__checkbox';
     checkbox.type = 'checkbox';
     checkbox.id = 'id' + cur_id;
     checkbox.value = 'no';
-    newTask.append(checkbox);
+    label.append(checkbox);
 }
-
-function addLabel(numElem,newTask,textTask,cur_id){
-    const label = document.createElement('label');
-    label.className = 'checkbox__label todo-list__checkbox-label';
-    label.htmlFor = 'id' + cur_id;
-    newTask.append(label);
+function addForm(label,cur_id){
+    const form = document.createElement('form');
+    form.className = 'input-field__form';
+    form.method = 'post';
+    form.id = 'form-content-task';
+    label.append(form);
+    return form;
+}
+function addInput(form,textTask,cur_id){
     const input = document.createElement('input');
     input.className = 'todo-list__text input-field text';
     input.type = 'text';
     input.value = textTask;
-    label.append(input);
-    label.addEventListener('mouseup', recountAfterChecking)
+    input.setAttribute('data-id',cur_id);
+    form.append(input);
+    //?????form.addEventListener('mouseup', recountAfterChecking);
+}
+function addLabel(newTask,cur_id){
+    const label = document.createElement('label');
+    label.className = 'checkbox__label todo-list__checkbox-label';
+    label.htmlFor = 'id' + cur_id;
+    newTask.append(label);
+    return label;
 }
 
-function addButton(newTask){
+
+
+function addButton(newTask,cur_id){
     const button = document.createElement('button');
     button.className = 'button todo-list__delete-button todo-list__delete-button_hover';
+    button.setAttribute('data-id',cur_id);
     newTask.append(button);
     const img = document.createElement('img');
     img.className = 'icon';
     img.src = "static/icons/close.png";
+    img.setAttribute('data-id',cur_id);
     button.append(img);
-    button.addEventListener('click', deleteTask);
+    button.addEventListener('click', delete_element);
     button.addEventListener('click', recountAfterDelete);
 }
 

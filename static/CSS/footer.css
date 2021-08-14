@@ -18,14 +18,10 @@
 .footer-button_focus-border:focus{
     outline: 1px solid #ebdfdf;
     box-shadow: 0 0 1pt 1pt #ebdfdf;
-    /*border: 1px solid #ebdfdf;
-    border-radius: 10%;*/
 }
 .footer-button_active-border:active{
     outline: 1px solid #ebdfdf;
     box-shadow: 0 0 1pt 1pt #ebdfdf;
-    /*border: 1px solid #ebdfdf;
-    border-radius: 10%;*/
 }
 .footer-text_style{
     font-size: 15px;
@@ -35,9 +31,6 @@
     justify-content: flex-start;
 }
 
-.button{
-    cursor: pointer;
-}
 .current-task-type{
     outline: 1px solid #ebdfdf;
     box-shadow: 0 0 1pt 1pt #ebdfdf;

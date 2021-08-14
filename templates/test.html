@@ -3,7 +3,6 @@
 <html>
 <head>
     <link rel="stylesheet" href="{% static 'CSS/style.css' %}"  />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
@@ -17,7 +16,7 @@
             <div class="todo-main-part__center-items">
                 <div class="todo-input todo-main-part_style todo-input__item_center">
                     <div class="input__icon"><img class="icon" src="{% static 'icons/select-all.png' %}"></div>
-                        <form  class="input-field__form" method="POST" id="post-form">
+                        <form  class="input-field__form form-new-task" method="POST" id="post-form">
                             {% csrf_token %}
                             <input id="content" name="content" class="todo-input__input-field input-field text" type="text" placeholder="What needs to be done?"/>
                         </form>
@@ -29,14 +28,13 @@
                         <li class="todo-list__item todo-list__item_style {{t.status}}">
                             <label class="checkbox__label todo-list__checkbox-label" for="id{{t.id}}">
                                 <input class="checkbox todo-list__checkbox" type="checkbox" id="id{{t.id}}" value="no"/>
-                                <form class="input-field__form" method="post" action="changeTaskContent/{{t.id}}/">
+                                <form class="input-field__form form-old-task" method="post">
                                     {% csrf_token %}
-                                    <input name="text" class="todo-list__text input-field text" type="text" value="{{t.content}}"/>
+                                    <input data-id ='{{t.id}}' name="text" class="todo-list__text input-field text" type="text" value="{{t.content}}"/>
                                 </form>
                             </label>
-
-                            <button  class="button todo-list__delete-button todo-list__delete-button_hover">
-                                <form method="post" data-id={{t.id}} id="delete"><img class="icon" src="{% static 'icons/close.png' %}"></form>
+                            <button data-id ='{{t.id}}'  class="button todo-list__delete-button todo-list__delete-button_hover">
+                                <img data-id ='{{t.id}}' class="icon" src="{% static 'icons/close.png' %}">
                             </button>
                         </li>
                         {% endfor %}
@@ -53,8 +51,8 @@
                     <button class="button task-button footer-button_focus-border footer-text_style" id="active">Active</button>
                     <button class="button task-button footer-button_focus-border footer-text_style" id="completed">Completed</button>
                 </span>
-                    <span class="footer__buttons button_right">
-            <a id="clear"><button class="button footer-button_active-border footer-text_style" id="button_clear">Clear completed</button></a>
+                <span class="footer__buttons button_right">
+                    <button class="button footer-button_active-border footer-text_style" id="button_clear">Clear completed</button>
                 </span>
                 </div>
             </div>
@@ -65,18 +63,18 @@
 
 </body>
 <script src="/static/js/jquery-2.2.4.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/task_types.js"></script>
 <script src="/static/js/check_completed_tasks.js"></script>
 <script src="/static/js/drop_down_list.js"></script>
 <script src="/static/js/scrollbar.js"></script>
 <script src="/static/js/add_task.js"> </script>
 <script src="/static/js/task_counter.js"></script>
-<script src="../static/JS/jquery-3.6.0.js"></script>
-<script src="/static/js/delete_task.js"> </script>
+<script src="/static/js/delete_task.js"></script>
+
 <script>
 
-        $('#post-form').submit(function (e) {
+    //Добавление задачи
+    $('#post-form').submit(function (e) {
         e.preventDefault();
         $.ajax({
             type:'POST',
@@ -88,16 +86,6 @@
             },
             dataType: 'json',
             success:function(json){
-                /*document.getElementById("post-form").reset();
-                $("ul").append('<div class="col-md-6">'+
-                    '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">' +
-                    '<div class="col p-4 d-flex flex-column position-static">' +
-                    '<h3 class="mb-0">' + json.title + '</h3>' +
-                    '<p class="mb-auto">' + json.description + '</p>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>'
-                )*/
 
                 addTask(json.id)
             },
@@ -108,13 +96,15 @@
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
-
     });
-    $('#delete').submit( function (e) {
-        e.preventDefault();
-        var tr = $(this).closest('li'),
-            del_id = $(this).closest('button').attr('id');
-        var id = e.target.dataset.id;
+    //Удаление задачи
+    $('.todo-list__delete-button').click( delete_element );
+    function delete_element(e) {
+       // e.preventDefault();
+
+        const tr = $(this).closest('li');
+        const id = e.target.dataset.id;
+
         $.ajax({
             type:'POST',
             url:'{% url "delete" %}',
@@ -124,43 +114,84 @@
                 action: 'delete'
             },
             dataType: 'json',
-            success:function(json){
-                //tr.remove();
-                alert(del_id)
+            success:function(){
+                tr.remove();
             },
             error : function(xhr,errmsg,err) {
-                alert(del_id)
+                alert(id)
                 $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                     " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
 
-    });
-        $('#clear').click(function (e) {
-            e.preventDefault();
-            $.ajax({
-                type:'POST',
-                url:'{% url "clear" %}',
-                data:{
-                    //content:$('#content').val(),
-                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-                    //action: 'post'
-                },
-                dataType: 'json',
-                success:function(json){
-                    clearCompletedTask()
-
-                },
-                error : function(xhr,errmsg,err) {
-
-                    $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-                }
-            });
-
+    };
+    //Удаление выполненных задач
+    $('#button_clear').click(function (e) {
+        $.ajax({
+            type:'POST',
+            url:'{% url "clear" %}',
+            data:{
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            dataType: 'json',
+            success:function(){
+                clearCompletedTask();
+            },
+            error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
         });
+    });
+    //Изменение текста задачи
+    $('.form-old-task').submit(function(e){
+        e.preventDefault();
+        const id = e.currentTarget[1].getAttribute('data-id');
+        const content = e.currentTarget[1].value;
+        $.ajax({
+            type:'POST',
+            url:'{% url "changeTaskContent" %}',
+            data:{
+                id: id,
+                content: content,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            dataType: 'json',
+            success: function(){
+            },
+            error : function(xhr,errmsg,err) {
+
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    });
+    //Изменение статуса задачи
+    $('.todo-list__checkbox-label').click(function(e){
+        e.preventDefault();
+        const id = e.currentTarget.htmlFor.split('d');
+        $.ajax({
+            type:'POST',
+            url:'{% url "changeStatus" %}',
+            data:{
+                id: id[1],
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            dataType: 'json',
+            success: function(){
+                changeTaskStatus(e);
+            },
+            error : function(xhr,errmsg,err) {
+
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    });
 
 </script>
 </html>
