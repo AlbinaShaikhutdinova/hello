@@ -7,7 +7,6 @@
 <body>
 
     <div class="todos">
-
         <div class="header">
             <div class="header__text">todos</div>
         </div>
@@ -86,7 +85,6 @@
             },
             dataType: 'json',
             success:function(json){
-
                 addTask(json.id)
             },
             error : function(xhr,errmsg,err) {
@@ -98,8 +96,8 @@
         });
     });
     //Удаление задачи
-    $('.todo-list__delete-button').click( delete_element );
-    function delete_element(e) {
+    $('.todo-list__delete-button').click( deleteTask );
+    function deleteTask(e) {
        // e.preventDefault();
 
         const tr = $(this).closest('li');
@@ -125,7 +123,7 @@
             }
         });
 
-    };
+    }
     //Удаление выполненных задач
     $('#button_clear').click(function (e) {
         $.ajax({
@@ -146,13 +144,14 @@
         });
     });
     //Изменение текста задачи
-    $('.form-old-task').submit(function(e){
+    $('.form-old-task').submit(changeTaskContent);
+    function changeTaskContent(e){
         e.preventDefault();
         const id = e.currentTarget[1].getAttribute('data-id');
         const content = e.currentTarget[1].value;
         $.ajax({
             type:'POST',
-            url:'{% url "changeTaskContent" %}',
+            url:'{% url "change_task_content" %}',
             data:{
                 id: id,
                 content: content,
@@ -168,14 +167,18 @@
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
-    });
+    }
     //Изменение статуса задачи
-    $('.todo-list__checkbox-label').click(function(e){
+    $('.todo-list__checkbox-label').click(changeStatus);
+    function changeStatus(e){
         e.preventDefault();
+        //alert(e.target.classList);
+        const trgtClass = e.target.classList;
+        if(trgtClass.contains('input-field__form')||trgtClass.contains('todo-list__text')) return false;
         const id = e.currentTarget.htmlFor.split('d');
         $.ajax({
             type:'POST',
-            url:'{% url "changeStatus" %}',
+            url:'{% url "change_status" %}',
             data:{
                 id: id[1],
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
@@ -191,7 +194,7 @@
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             }
         });
-    });
+    }
 
 </script>
 </html>
