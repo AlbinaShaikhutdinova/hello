@@ -100,7 +100,6 @@
     //Удаление задачи
     $('.todo-list__delete-button').click( deleteTask );
     function deleteTask(e) {
-        // e.preventDefault();
 
         const tr = $(this).closest('li');
         const id = e.target.dataset.id;
@@ -174,7 +173,6 @@
     $('.todo-list__checkbox-label').click(changeStatus);
     function changeStatus(e){
         e.preventDefault();
-        //alert(e.target.classList);
         const trgtClass = e.target.classList;
         if(trgtClass.contains('input-field__form')||trgtClass.contains('todo-list__text')) return false;
         const id = e.currentTarget.htmlFor.split('d');
