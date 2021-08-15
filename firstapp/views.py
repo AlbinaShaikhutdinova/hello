@@ -6,37 +6,34 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponseNotFound
 from .models import Task
 from .forms import TaskForm
-#from rest_framework import serializers
-#from django.core import serializers as core_serializers
 from django.http import JsonResponse
 
 
 # получение данных из бд
 def index(request):
     task = Task.objects.all()
-    return render(request, "test.html", {"task": task})
+    return render(request, "index.html", {"task": task})
 
 
 # создание задачи
 def create_task(request):
-    posts = Task.objects.all()
     response_data = {}
     content = request.POST.get('content')
     response_data['content'] = content
     response_data['status'] = 'active'
 
-    h = Task.objects.create(
+    new_task = Task.objects.create(
             content = content,
             status = 'active',
             )
-    response_data['id'] = h.id
+    response_data['id'] = new_task.id
     return JsonResponse(response_data)
 
 # удаление задачи
 def delete_task(request):
     response_data = {}
-    idt = request.POST.get('id')
-    t = Task.objects.get(id=idt)
+    id_task = request.POST.get('id')
+    t = Task.objects.get(id=id_task)
     t.delete()
     return JsonResponse(response_data)
 
@@ -52,8 +49,8 @@ def clear_completed_tasks(request):
 # изменение задачи
 def change_task_content(request):
     response_data = {}
-    idt = request.POST.get('id')
-    task = Task.objects.get(id=idt)
+    id_task = request.POST.get('id')
+    task = Task.objects.get(id=id_task)
     task.content = request.POST.get('content')
     task.save()
     response_data['content'] = task.content
@@ -62,8 +59,8 @@ def change_task_content(request):
 # изменение статуса задачи
 def change_status(request):
     response_data = {}
-    idt = request.POST.get('id')
-    task = Task.objects.get(id=idt)
+    id_task = request.POST.get('id')
+    task = Task.objects.get(id=id_task)
     if task.status == "active":
         task.status = "completed"
     else:

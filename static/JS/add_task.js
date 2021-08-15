@@ -2,11 +2,6 @@
 
 const inputField = document.querySelector('.todo-input__input-field');
 
-//inputField.addEventListener('keydown',handleEvent);
-
-
-
-
 function addTask(cur_id) {
     const list = document.querySelector('.todo-list-checkbox');
     const newTask = document.createElement('li');
@@ -18,9 +13,8 @@ function addTask(cur_id) {
     addButton(newTask,cur_id);
     addCheckbox(label,cur_id);
     const form = addForm(label,cur_id);
+    addToken(form);
     addInput(form,textTask,cur_id);
-
-    //label.addEventListener('click', changeTaskStatus);
     inputField.value = '';
     hideIfInCompleted(newTask);
 
@@ -42,6 +36,13 @@ function addForm(label,cur_id){
     label.append(form);
     return form;
 }
+function addToken(form){
+    const token = document.createElement('input');
+    token.type = 'hidden';
+    token.name = 'csrfmiddlewaretoken';
+    token.value = '{{ csrf_token }}';
+    form.append(token);
+}
 function addInput(form,textTask,cur_id){
     const input = document.createElement('input');
     input.className = 'todo-list__text input-field text';
@@ -49,7 +50,6 @@ function addInput(form,textTask,cur_id){
     input.value = textTask;
     input.setAttribute('data-id',cur_id);
     form.append(input);
-    //?????form.addEventListener('mouseup', recountAfterChecking);
 }
 function addLabel(newTask,cur_id){
     const label = document.createElement('label');
@@ -59,9 +59,6 @@ function addLabel(newTask,cur_id){
     newTask.append(label);
     return label;
 }
-
-
-
 function addButton(newTask,cur_id){
     const button = document.createElement('button');
     button.className = 'button todo-list__delete-button todo-list__delete-button_hover';
@@ -75,7 +72,6 @@ function addButton(newTask,cur_id){
     button.addEventListener('click', deleteTask);
     button.addEventListener('click', recountAfterDelete);
 }
-
 function hideIfInCompleted(task){
     if(document.querySelector('.current-task-type').id ==='completed')
         task.style.display = 'none';

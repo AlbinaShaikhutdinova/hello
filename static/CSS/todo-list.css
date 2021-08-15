@@ -38,6 +38,7 @@
 .completed .todo-list__text{
     text-decoration: line-through;
     color: #dadada;
+    pointer-events:none;
 }
 .todo-list__item:hover{
     background: #fafafa;
