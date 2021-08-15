@@ -18,13 +18,10 @@ from django.urls import path
 from firstapp import views
  
 urlpatterns = [
-    path('delete', views.delete_post, name='delete'),
-    path('create', views.create_post, name="create"),
-
+    path('delete', views.delete_task, name='delete'),
+    path('create', views.create_task, name="create"),
     path('', views.index),
-
-    path('clear', views.clear_post, name='clear'),
-    path('changeStatus', views.changeStatus, name='changeStatus'),
-    path('changeTaskContent', views.changeTaskContent, name='changeTaskContent'),
-
+    path('clear', views.clear_completed_tasks, name='clear'),
+    path('change_status', views.change_status, name='change_status'),
+    path('change_task_content', views.change_task_content, name='change_task_content'),
 ]

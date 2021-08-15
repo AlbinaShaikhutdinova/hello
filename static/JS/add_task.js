@@ -35,9 +35,10 @@ function addCheckbox(label,cur_id){
 }
 function addForm(label,cur_id){
     const form = document.createElement('form');
-    form.className = 'input-field__form';
+    form.className = 'input-field__form form-old-task';
     form.method = 'post';
     form.id = 'form-content-task';
+    form.addEventListener('submit', changeTaskContent);
     label.append(form);
     return form;
 }
@@ -54,6 +55,7 @@ function addLabel(newTask,cur_id){
     const label = document.createElement('label');
     label.className = 'checkbox__label todo-list__checkbox-label';
     label.htmlFor = 'id' + cur_id;
+    label.addEventListener('click', changeStatus);
     newTask.append(label);
     return label;
 }
@@ -70,7 +72,7 @@ function addButton(newTask,cur_id){
     img.src = "static/icons/close.png";
     img.setAttribute('data-id',cur_id);
     button.append(img);
-    button.addEventListener('click', delete_element);
+    button.addEventListener('click', deleteTask);
     button.addEventListener('click', recountAfterDelete);
 }
 
