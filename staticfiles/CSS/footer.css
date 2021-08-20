@@ -1,0 +1,40 @@
+.footer{
+    height: 20px;
+    border-top: 1px solid #e6e6e6;
+    padding: 10px 2px 0 10px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
+.button_centre {
+    display: flex;
+    justify-content: center;
+}
+.button_right{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.footer-button_focus-border:focus{
+    outline: 1px solid #ebdfdf;
+    box-shadow: 0 0 1pt 1pt #ebdfdf;
+}
+.footer-button_active-border:active{
+    outline: 1px solid #ebdfdf;
+    box-shadow: 0 0 1pt 1pt #ebdfdf;
+}
+.footer-text_style{
+    font-size: 15px;
+    font-family: Arial;
+    color: #888888;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.current-task-type{
+    outline: 1px solid #ebdfdf;
+    box-shadow: 0 0 1pt 1pt #ebdfdf;
+}
+.footer.close{
+    display: none;
+}

@@ -1,0 +1,16 @@
+
+.todo-main-part__center-items{
+    border: 1px solid whitesmoke;
+    box-shadow: 0 0 5px lightgray;
+    /*height: 400px;*/
+    background-color: white;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-rows: 60px auto 40px;
+}
+.todo-main-part__center-items.close{
+    height: 60px;
+    grid-template-rows: 60px 0 0;
+}

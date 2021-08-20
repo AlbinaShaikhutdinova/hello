@@ -1,0 +1,31 @@
+.todo-input__input-field::placeholder{
+    font-style: italic;
+    font-size: 18px;
+    color: #dadada;
+
+}
+.input__icon{
+    cursor: pointer;
+}
+.todo-input{
+    display: grid;
+    grid-template-columns: 35px auto;
+}
+.todo-main-part_style{
+    padding: 0px 5px 0px 15px;
+    border-bottom: 1px solid #e6e6e6;
+}
+.input-field{
+    padding-left: 5px;
+    width: 100%;
+}
+.input-field__form{
+    width: 100%;
+}
+.todo-input__item_center{
+    display: flex;
+    align-items: center;
+}
+.input__icon_close{
+    transform: rotate(-90deg);
+}
